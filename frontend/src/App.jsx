@@ -1,0 +1,20 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthProvider';
+import { Navbar } from './components/Navbar';
+import { HomePage } from './pages/HomePage';
+import { LoginPage } from './pages/LoginPage';
+import { RegisterPage } from './pages/RegisterPage';
+import { RestaurantCatalogPage } from './pages/RestaurantCatalogPage';
+import { RestaurantDetailsPage } from './pages/RestaurantDetailsPage';
+import { CustomerDashboard } from './pages/CustomerDashboard';
+import { OwnerDashboard } from './pages/OwnerDashboard';
+import { OwnerReservationsPage } from './pages/OwnerReservationsPage';
+import { OwnerTablesPage } from './pages/OwnerTablesPage';
+import { AdminDashboard } from './pages/AdminDashboard';
+import { AdminAnalyticsPage } from './pages/AdminAnalyticsPage';
+import { ProtectedRoute } from './components/ProtectedRoute';
+const App = () => {
+    return (_jsx(Router, { children: _jsx(AuthProvider, { children: _jsxs("div", { className: "min-h-screen bg-slate-50", children: [_jsx(Navbar, {}), _jsx("main", { children: _jsxs(Routes, { children: [_jsx(Route, { path: "/", element: _jsx(HomePage, {}) }), _jsx(Route, { path: "/login", element: _jsx(LoginPage, {}) }), _jsx(Route, { path: "/register", element: _jsx(RegisterPage, {}) }), _jsx(Route, { path: "/restaurants", element: _jsx(RestaurantCatalogPage, {}) }), _jsx(Route, { path: "/restaurants/:id", element: _jsx(RestaurantDetailsPage, {}) }), _jsx(Route, { path: "/customer/dashboard", element: _jsx(ProtectedRoute, { allowedRoles: ['CUSTOMER'], children: _jsx(CustomerDashboard, {}) }) }), _jsx(Route, { path: "/owner/dashboard", element: _jsx(ProtectedRoute, { allowedRoles: ['RESTAURANT_OWNER'], children: _jsx(OwnerDashboard, {}) }) }), _jsx(Route, { path: "/owner/reservations", element: _jsx(ProtectedRoute, { allowedRoles: ['RESTAURANT_OWNER'], children: _jsx(OwnerReservationsPage, {}) }) }), _jsx(Route, { path: "/owner/tables", element: _jsx(ProtectedRoute, { allowedRoles: ['RESTAURANT_OWNER'], children: _jsx(OwnerTablesPage, {}) }) }), _jsx(Route, { path: "/admin/dashboard", element: _jsx(ProtectedRoute, { allowedRoles: ['ADMIN'], children: _jsx(AdminDashboard, {}) }) }), _jsx(Route, { path: "/admin/analytics", element: _jsx(ProtectedRoute, { allowedRoles: ['ADMIN'], children: _jsx(AdminAnalyticsPage, {}) }) })] }) })] }) }) }));
+};
+export default App;
