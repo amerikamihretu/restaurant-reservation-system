@@ -1,0 +1,7 @@
+{
+  "name": "RestoReserve - Restaurant Reservation System",
+  "description": "Full-stack restaurant reservation system with table booking, catalog exploration, and management dashboards.",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

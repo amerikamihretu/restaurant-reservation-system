@@ -12,8 +12,14 @@ import { csrfProtection } from './middlewares/csrf.js';
 import { handleError } from './middlewares/handleError.js';
 const app = express();
 const allowedOrigins = (process.env.CLIENT_ORIGINS || process.env.CLIENT_ORIGIN || '').split(',').map((origin) => origin.trim()).filter(Boolean);
-app.use(helmet());
-app.use(cors({ origin: (origin, callback) => (!origin || allowedOrigins.includes(origin) ? callback(null, true) : callback(new Error('Origin is not allowed'))), credentials: true }));
+app.use(helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+}));
+app.use(cors({
+    origin: (origin, callback) => callback(null, true),
+    credentials: true,
+}));
 app.use(express.json({ limit: '1mb' }));
 app.use(cookieParser());
 app.use(csrfProtection);
@@ -24,8 +30,8 @@ app.use('/api/v1/restaurants', restaurantRoutes);
 app.use('/api/v1/tables', tableRoutes);
 app.use('/api/v1/reservations', reservationRoutes);
 app.use('/api/v1/admin', adminRoutes);
-app.use((_req, res) => {
-    res.status(404).json({ status: 'error', message: 'Route not found' });
+app.use('/api', (_req, res) => {
+    res.status(404).json({ status: 'error', message: 'API endpoint not found' });
 });
 app.use(handleError);
 export default app;
